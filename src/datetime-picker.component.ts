@@ -510,7 +510,10 @@ export class NguiDatetimePickerComponent {
     }
     if (this.currToday) {
       if (this.useUtc) {
-        this.selectDateTime(moment.tz('UTC').toDate());
+        let d = new Date();
+        this.selectDateTime(new Date(d.getUTCFullYear(),
+          d.getUTCMonth(),
+          d.getUTCDate()));
       } else {
         this.selectDateTime(new Date());
       }

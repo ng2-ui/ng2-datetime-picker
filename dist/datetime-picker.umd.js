@@ -322,8 +322,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	        this.showWeekNumbers = false;
 	        this.showTodayShortcut = false;
 	        this.showAmPm = false;
-	        this.useUtc = false;
-	        this.currToday = false;
+	        this.useUtc = false; /* check directive */
+	        this.currToday = false; /* check directive */
 	        this.selected$ = new core_1.EventEmitter();
 	        this.closing$ = new core_1.EventEmitter();
 	        this.locale = datetime_1.NguiDatetime.locale;
@@ -434,7 +434,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	        }
 	        if (this.currToday) {
 	            if (this.useUtc) {
-	                this.selectDateTime(moment.tz('UTC').toDate());
+	                var d = new Date();
+	                this.selectDateTime(new Date(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate()));
 	            }
 	            else {
 	                this.selectDateTime(new Date());
@@ -603,11 +604,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	        __metadata('design:type', Boolean)
 	    ], NguiDatetimePickerComponent.prototype, "useUtc", void 0);
 	    __decorate([
-	        core_1.Input('current-is-today'), 
+	        /* check directive */ core_1.Input('current-is-today'), 
 	        __metadata('design:type', Boolean)
 	    ], NguiDatetimePickerComponent.prototype, "currToday", void 0);
 	    __decorate([
-	        core_1.Output('selected$'), 
+	        /* check directive */ core_1.Output('selected$'), 
 	        __metadata('design:type', core_1.EventEmitter)
 	    ], NguiDatetimePickerComponent.prototype, "selected$", void 0);
 	    __decorate([
@@ -688,8 +689,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	        this.closeOnSelect = true;
 	        this.showTodayShortcut = false;
 	        this.isDraggable = true;
-	        this.useUtc = false;
-	        this.currToday = false;
+	        this.useUtc = false; /* Change this attribute to true and the result of currentTime will be present in UTC */
+	        this.currToday = false; /* Change this attribute to true and the result of currentTime will be with 'today' date */
 	        this.ngModelChange = new core_1.EventEmitter();
 	        this.valueChanged$ = new core_1.EventEmitter();
 	        this.popupClosed$ = new core_1.EventEmitter();
@@ -1059,11 +1060,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	        __metadata('design:type', Boolean)
 	    ], NguiDatetimePickerDirective.prototype, "useUtc", void 0);
 	    __decorate([
-	        core_1.Input('current-is-today'), 
+	        /* Change this attribute to true and the result of currentTime will be present in UTC */ core_1.Input('current-is-today'), 
 	        __metadata('design:type', Boolean)
 	    ], NguiDatetimePickerDirective.prototype, "currToday", void 0);
 	    __decorate([
-	        core_1.Input('ngModel'), 
+	        /* Change this attribute to true and the result of currentTime will be with 'today' date */ core_1.Input('ngModel'), 
 	        __metadata('design:type', Object)
 	    ], NguiDatetimePickerDirective.prototype, "ngModel", void 0);
 	    __decorate([

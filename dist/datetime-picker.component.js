@@ -14,8 +14,8 @@ var NguiDatetimePickerComponent = (function () {
         this.showWeekNumbers = false;
         this.showTodayShortcut = false;
         this.showAmPm = false;
-        this.useUtc = false;
-        this.currToday = false;
+        this.useUtc = false; /* check directive */
+        this.currToday = false; /* check directive */
         this.selected$ = new core_1.EventEmitter();
         this.closing$ = new core_1.EventEmitter();
         this.locale = datetime_1.NguiDatetime.locale;
@@ -126,7 +126,8 @@ var NguiDatetimePickerComponent = (function () {
         }
         if (this.currToday) {
             if (this.useUtc) {
-                this.selectDateTime(moment.tz('UTC').toDate());
+                var d = new Date();
+                this.selectDateTime(new Date(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate()));
             }
             else {
                 this.selectDateTime(new Date());

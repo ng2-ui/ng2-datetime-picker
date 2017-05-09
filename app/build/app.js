@@ -72037,8 +72037,8 @@
 	        this.showWeekNumbers = false;
 	        this.showTodayShortcut = false;
 	        this.showAmPm = false;
-	        this.useUtc = false;
-	        this.currToday = false;
+	        this.useUtc = false; /* check directive */
+	        this.currToday = false; /* check directive */
 	        this.selected$ = new core_1.EventEmitter();
 	        this.closing$ = new core_1.EventEmitter();
 	        this.locale = datetime_1.NguiDatetime.locale;
@@ -72149,7 +72149,8 @@
 	        }
 	        if (this.currToday) {
 	            if (this.useUtc) {
-	                this.selectDateTime(moment.tz('UTC').toDate());
+	                var d = new Date();
+	                this.selectDateTime(new Date(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate()));
 	            }
 	            else {
 	                this.selectDateTime(new Date());
@@ -72318,11 +72319,11 @@
 	        __metadata('design:type', Boolean)
 	    ], NguiDatetimePickerComponent.prototype, "useUtc", void 0);
 	    __decorate([
-	        core_1.Input('current-is-today'), 
+	        /* check directive */ core_1.Input('current-is-today'), 
 	        __metadata('design:type', Boolean)
 	    ], NguiDatetimePickerComponent.prototype, "currToday", void 0);
 	    __decorate([
-	        core_1.Output('selected$'), 
+	        /* check directive */ core_1.Output('selected$'), 
 	        __metadata('design:type', core_1.EventEmitter)
 	    ], NguiDatetimePickerComponent.prototype, "selected$", void 0);
 	    __decorate([
@@ -72403,8 +72404,8 @@
 	        this.closeOnSelect = true;
 	        this.showTodayShortcut = false;
 	        this.isDraggable = true;
-	        this.useUtc = false;
-	        this.currToday = false;
+	        this.useUtc = false; /* Change this attribute to true and the result of currentTime will be present in UTC */
+	        this.currToday = false; /* Change this attribute to true and the result of currentTime will be with 'today' date */
 	        this.ngModelChange = new core_1.EventEmitter();
 	        this.valueChanged$ = new core_1.EventEmitter();
 	        this.popupClosed$ = new core_1.EventEmitter();
@@ -72774,11 +72775,11 @@
 	        __metadata('design:type', Boolean)
 	    ], NguiDatetimePickerDirective.prototype, "useUtc", void 0);
 	    __decorate([
-	        core_1.Input('current-is-today'), 
+	        /* Change this attribute to true and the result of currentTime will be present in UTC */ core_1.Input('current-is-today'), 
 	        __metadata('design:type', Boolean)
 	    ], NguiDatetimePickerDirective.prototype, "currToday", void 0);
 	    __decorate([
-	        core_1.Input('ngModel'), 
+	        /* Change this attribute to true and the result of currentTime will be with 'today' date */ core_1.Input('ngModel'), 
 	        __metadata('design:type', Object)
 	    ], NguiDatetimePickerDirective.prototype, "ngModel", void 0);
 	    __decorate([
@@ -82729,7 +82730,7 @@
 	//noinspection TypeScriptCheckImport
 	var datetime_picker_1 = __webpack_require__(341);
 	moment['locale']('en-ca'); //e.g. fr-ca
-	var templateStr = "\n  <div id=\"my-div\">\n    <h1>Ng2 DateTime Picker Test</h1>\n    \n    <fieldset id=\"test2\"><legend><h2>min date, max date, disabled dates</h2></legend>\n      <ngui-utils-2>\n        <input\n          [(ngModel)]=\"date2\" \n          ngui-datetime-picker\n          [disabled-dates]=\"date2DisabledDates\"\n          [min-date]=\"date2MinDate\"\n          [max-date]=\"date2MaxDate\"\n          [show-close-layer]=\"true\"\n          [show-week-numbers]=\"true\"\n          [is-draggable]=\"false\"\n          date-only=\"true\"/>\n        date2: {{date2}}\n        <button id=\"set-date\" (click)=\"date2 = date2New\">Set 2017-12-31</button>\n      </ngui-utils-2>\n      <pre>{{templateStr | htmlCode:'ngui-utils-2'}}</pre>\n    </fieldset>\n     \n    <fieldset id=\"test3\"><legend><h2>time only</h2></legend>\n      <ngui-utils-4>\n        <input [(ngModel)]=\"date3\"\n          ngui-datetime-picker \n          date-format=\"DD-MM-YYYY hh:mm\"\n          time-only=\"true\"\n          minute-step=\"5\"\n          (popupClosed)=\"onDatetimePickerClosed()\"\n          [close-on-select]=\"false\" />\n      </ngui-utils-4>\n      <button (click)=\"date3='Thu Jan 31 2015 00:00:00 GMT-0500 (EST)'\">Change</button>\n      <pre>{{templateStr | htmlCode:'ngui-utils-4'}}</pre>\n    </fieldset>\n   \n    <fieldset id=\"test4\"><legend><h2>with timezone</h2></legend>\n      <ngui-utils-6>\n        <input \n          [(ngModel)]=\"date4\" \n          ngui-datetime-picker\n          [date-format]=\"date4TimezoneFormat\" />\n          dateWithTimezone: {{dateWithTimezone}}\n        <br/>\n      </ngui-utils-6>\n      <pre>{{templateStr | htmlCode:'ngui-utils-6'}}</pre>\n    </fieldset>\n   \n    <fieldset id=\"test5\"><legend><h2>Reactive form</h2></legend>\n      <ngui-utils-3>\n        <form [formGroup]=\"myForm\">\n            <input \n              required\n              formControlName=\"date\" \n              ngui-datetime-picker\n              [close-on-select]=\"false\"\n              [use-utc]=\"true\"\n              [current-is-today]=\"true\"/>\n        </form>\n        myForm.controls.date.value: {{myForm.controls.date.value}}\n        <br/>myForm.value: {{myForm.value | json}}\n        <br/>myForm.dirty: {{myForm.dirty}}\n        <br/>myForm.controls.date.dirty: {{myForm.controls.date.dirty}}\n        <br/>\n        <a href=\"javascript:void()\" \n          (click)=\"myForm.controls.date.patchValue('2015-06-30')\">\n          2015-06-30\n        </a>\n        <a href=\"javascript:void()\"\n          (click)=\"myForm.controls.date.patchValue('2015-07-19')\">\n          2015-07-19\n        </a>\n        <a href=\"javascript:void()\"\n          (click)=\"myForm.controls.date.patchValue('2015-12-31')\">\n          2015-12-31\n        </a>\n      </ngui-utils-3>\n      <pre>{{templateStr | htmlCode:'ngui-utils-3'}}</pre>\n    </fieldset>\n\n    <fieldset id=\"test6\">\n      <legend><h2>Material Design</h2></legend>\n      <ngui-utils-4>\n        <md-input-container>\n          <input mdInput \n            [(ngModel)]=\"mdDate\"\n            name=\"mdDate\"\n            ngui-datetime-picker\n            date-only=\"true\" \n            [close-on-select]=\"false\" />\n        </md-input-container>\n      </ngui-utils-4>\n    </fieldset>\n\n  </div>\n";
+	var templateStr = "\n  <div id=\"my-div\">\n    <h1>Ng2 DateTime Picker Test</h1>\n    \n    <fieldset id=\"test2\"><legend><h2>min date, max date, disabled dates</h2></legend>\n      <ngui-utils-2>\n        <input\n          [(ngModel)]=\"date2\" \n          ngui-datetime-picker\n          [disabled-dates]=\"date2DisabledDates\"\n          [min-date]=\"date2MinDate\"\n          [max-date]=\"date2MaxDate\"\n          [show-close-layer]=\"true\"\n          [show-week-numbers]=\"true\"\n          [is-draggable]=\"false\"\n          date-only=\"true\"/>\n        date2: {{date2}}\n        <button id=\"set-date\" (click)=\"date2 = date2New\">Set 2017-12-31</button>\n      </ngui-utils-2>\n      <pre>{{templateStr | htmlCode:'ngui-utils-2'}}</pre>\n    </fieldset>\n     \n    <fieldset id=\"test3\"><legend><h2>time only</h2></legend>\n      <ngui-utils-4>\n        <input [(ngModel)]=\"date3\"\n          ngui-datetime-picker \n          date-format=\"DD-MM-YYYY hh:mm\"\n          time-only=\"true\"\n          minute-step=\"5\"\n          (popupClosed)=\"onDatetimePickerClosed()\"\n          [close-on-select]=\"false\" />\n      </ngui-utils-4>\n      <button (click)=\"date3='Thu Jan 31 2015 00:00:00 GMT-0500 (EST)'\">Change</button>\n      <pre>{{templateStr | htmlCode:'ngui-utils-4'}}</pre>\n    </fieldset>\n   \n    <fieldset id=\"test4\"><legend><h2>with timezone</h2></legend>\n      <ngui-utils-6>\n        <input \n          [(ngModel)]=\"date4\" \n          ngui-datetime-picker\n          [date-format]=\"date4TimezoneFormat\" />\n          dateWithTimezone: {{dateWithTimezone}}\n        <br/>\n      </ngui-utils-6>\n      <pre>{{templateStr | htmlCode:'ngui-utils-6'}}</pre>\n    </fieldset>\n   \n    <fieldset id=\"test5\"><legend><h2>Reactive form</h2></legend>\n      <ngui-utils-3>\n        <form [formGroup]=\"myForm\">\n            <input \n              required\n              formControlName=\"date\" \n              ngui-datetime-picker\n              [close-on-select]=\"false\"/>\n        </form>\n        myForm.controls.date.value: {{myForm.controls.date.value}}\n        <br/>myForm.value: {{myForm.value | json}}\n        <br/>myForm.dirty: {{myForm.dirty}}\n        <br/>myForm.controls.date.dirty: {{myForm.controls.date.dirty}}\n        <br/>\n        <a href=\"javascript:void()\" \n          (click)=\"myForm.controls.date.patchValue('2015-06-30')\">\n          2015-06-30\n        </a>\n        <a href=\"javascript:void()\"\n          (click)=\"myForm.controls.date.patchValue('2015-07-19')\">\n          2015-07-19\n        </a>\n        <a href=\"javascript:void()\"\n          (click)=\"myForm.controls.date.patchValue('2015-12-31')\">\n          2015-12-31\n        </a>\n      </ngui-utils-3>\n      <pre>{{templateStr | htmlCode:'ngui-utils-3'}}</pre>\n    </fieldset>\n\n    <fieldset id=\"test6\">\n      <legend><h2>Material Design</h2></legend>\n      <ngui-utils-4>\n        <md-input-container>\n          <input mdInput \n            [(ngModel)]=\"mdDate\"\n            name=\"mdDate\"\n            ngui-datetime-picker\n            date-only=\"true\" \n            [close-on-select]=\"false\" />\n        </md-input-container>\n      </ngui-utils-4>\n    </fieldset>\n\n  </div>\n";
 	var DirectiveTestComponent = (function () {
 	    function DirectiveTestComponent(fb) {
 	        this.fb = fb;
