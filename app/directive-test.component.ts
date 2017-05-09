@@ -62,9 +62,7 @@ var templateStr = `
               required
               formControlName="date" 
               ngui-datetime-picker
-              [close-on-select]="false"
-              [use-utc]="true"
-              [current-is-today]="true"/>
+              [close-on-select]="false"/>
         </form>
         myForm.controls.date.value: {{myForm.controls.date.value}}
         <br/>myForm.value: {{myForm.value | json}}
